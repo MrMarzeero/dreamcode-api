@@ -9,5 +9,8 @@ router
 .post('/generate-problem', (req: Request, res: Response) => {
     ProblemController.generateProblem(req, res);
 })
+.post('/generate-solution', (req: Request, res: Response) => {
+    ProblemController.generateSolution(req, res);
+})
 
 export default router;
