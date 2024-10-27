@@ -1,7 +1,7 @@
 import openai from '../lib/openai';
 import { Request, Response } from 'express';
-import { generateProblemPrompt, generateSolutionPrompt } from '../prompts'
-import { GenProblemSchema, GenSolutionSchema } from '../schemas/schemas';
+import { generateProblemPrompt, generateSolutionPrompt, generateTestCasesPrompt } from '../prompts'
+import { GenProblemSchema, GenSolutionSchema, GenTestCasesSchema, ProblemSchema } from '../schemas/schemas';
 
 export class ProblemController {
     static async generateProblem(req: Request, res: Response) {
@@ -51,6 +51,32 @@ export class ProblemController {
                 return res.status(201).json(JSON.parse(messageContent))
             }
         } catch(err) {
+            return res.status(500).json({ error: 'Internal server error' })
+        }
+    }
+
+    static async generateTestCases(req: Request, res: Response) {
+        try {
+            GenTestCasesSchema.parse(req.body)
+        } catch(err) {
+            return res.json({ error: "GENERATE TEST CASES: Bad Requests: Invalid Parameter" })
+        }
+
+        try {
+            const completion = await openai.chat.completions.create({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: generateTestCasesPrompt },
+                    { role: "user", content: JSON.stringify(req.body)}
+                ]
+            });
+
+            const messageContent = completion.choices[0].message.content
+            if(messageContent != null) {
+                return res.status(201).json(JSON.parse(messageContent))
+            }
+        } catch(err) {
+            console.log(err)
             return res.status(500).json({ error: 'Internal server error' })
         }
     }

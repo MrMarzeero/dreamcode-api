@@ -21,3 +21,8 @@ export const GenSolutionSchema = z.object({
     language: z.string(),
     problem: ProblemSchema,
 })
+
+export const GenTestCasesSchema = z.object({
+    test_cases: z.number(),
+    problem: ProblemSchema,
+})
