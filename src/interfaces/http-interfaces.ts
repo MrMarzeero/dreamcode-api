@@ -5,7 +5,7 @@ export interface HttpResponse {
     body: {
         status: string,
         error?: Error,
-        data?:any 
+        data?: genData
     },
 }
 

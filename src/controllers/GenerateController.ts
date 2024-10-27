@@ -38,7 +38,8 @@ export class ProblemController {
         try {
             genSolutionSchema.parse(req.body)
         } catch(err) {
-            return res.status(400).json({ error: 'GENERATE SOLUTION: Bad Request: Invalid Parameter'})
+            if(err instanceof Error)
+                return res.status(400).json(badRequest(err))   
         }
         try {
             const completion = await openai.chat.completions.create({
@@ -67,7 +68,8 @@ export class ProblemController {
         try {
             genTestCasesSchema.parse(req.body)
         } catch(err) {
-            return res.json({ error: "GENERATE TEST CASES: Bad Requests: Invalid Parameter" })
+            if (err instanceof Error)
+                return res.status(400).json(badRequest(err))
         }
         try {
             const completion = await openai.chat.completions.create({
