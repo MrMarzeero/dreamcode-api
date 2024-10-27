@@ -4,7 +4,7 @@ export interface HttpResponse {
     statusCode: number, 
     body: {
         status: string,
-        error?: any,
+        error?: Error,
         data?:any 
     },
 }
