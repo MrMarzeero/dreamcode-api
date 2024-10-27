@@ -4,7 +4,7 @@ RESTFUL API that generate, solve and create test cases for competitive programmi
 
 ## 💻 Development Enviroment
 
-After installing the project, in the source directory:
+Execute on the project environment:
 ```sh
 npm install
 touch .env
