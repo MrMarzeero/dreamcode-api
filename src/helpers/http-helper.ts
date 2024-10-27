@@ -6,11 +6,11 @@ export const badRequest = (err: Error): HttpResponse => {
     body: {
       status: 'Bad Request',
       error: {
-        name: err.name, 
+        name: err.name,
         stack: err.stack,
         cause: err.cause,
         message: err.message,
-      }
+      },
     },
   };
 };
