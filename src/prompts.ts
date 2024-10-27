@@ -117,6 +117,22 @@ Ensure that the number of test cases ranges between 5 and 20, inclusive. Each te
    - Determine the expected output for each test scenario based on the problem's logic.
 4. Compile these into a structured JSON format as described.
 
+#Example Input 
+{
+    "test_cases": 5,
+    "problem": {
+        "problem": {
+        "name": "Exemple",
+        "statement": "Exemple",
+        "output": "Exemple",
+        "sample_input": "Exemple",
+        "sample_output": "Exemple",
+        "notes": "Exemple"
+    }    
+}
+
+#Ensure that the number of output test cases is the same that the indicated in the test_cases parameter.
+
 # Output Format
 
 The output should be a valid JSON object that can be parsed correctly. It should include:
