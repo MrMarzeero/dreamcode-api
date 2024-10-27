@@ -5,7 +5,8 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.8.1"
+    "@types/node": "^22.8.1",
+    "eslint": "^9.13.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
