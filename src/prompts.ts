@@ -6,7 +6,7 @@ Use the default constraints of 256mb memory and 1ms time limits. If specific pro
 # Steps
 
 1. **Interpret the Details**:
-   - If a language is not specified, use English by default.
+    - The output language must be the language in the parameter "language" of the input.
    - Develop a problem idea if one is not provided.
    - Select the relevant problem topics based on general programming problem types if none are specified.
    - Determine the difficulty level based on problem complexity if not pre-defined.
@@ -42,6 +42,7 @@ Return the information structured strictly in the following JSON format, without
 Make sure to include valid values that match the specified constraints, and do not include any additional characters or formatting that would make the JSON invalid.
 
 #To-Do
+-Ensure to return all problem details in the specified language, including the problem statement, input/output specifications, and notes." This way, it will be clearer that you expect the response to follow the input language.
 -Ensure that the JSON is correctly formatted
 - There are no extra characters like backticks or newlines outside of the JSON structure.
 `;
@@ -108,7 +109,7 @@ For C++:
 #To-Do
 -Ensure that the JSON is correctly formatted
 - There are no extra characters like backticks or newlines outside of the JSON structure.
-`;
+`
 
 export const generateTestCasesPrompt = `
 Generate test cases for a competitive programming problem based on the provided JSON input format and constraints. Ensure the JSON output is correctly formatted for parsing.
