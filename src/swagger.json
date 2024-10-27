@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "title": "DreamCode API",
-    "version": "0.5.0",
-    "description": "API for generating competitive programming problems, solutions, and test cases."
+    "description": "API for generating and solving competitive programming problems.",
+    "version": "0.5.0"
   },
   "paths": {
     "/problem": {
@@ -18,43 +18,81 @@
                 "properties": {
                   "language": {
                     "type": "string",
-                    "example": "English"
+                    "example": "Portuguese"
                   },
                   "context": {
                     "type": "string",
-                    "example": "Problem context"
+                    "example": "Changellenge with presidents"
                   },
                   "topics": {
                     "type": "array",
                     "items": {
-                      "type": "string"
-                    },
-                    "example": ["Arrays", "Sorting"]
+                      "type": "string",
+                      "example": "Binary Search"
+                    }
                   },
                   "level": {
                     "type": "string",
-                    "example": "Medium"
+                    "example": "Easy"
                   }
-                },
-                "required": ["language", "context", "topics", "level"]
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Problem generated successfully",
+            "description": "Problem created successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Created!"
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/Problem"
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Created!"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "O Desafio do Presidente"
+                            },
+                            "statement": {
+                              "type": "string",
+                              "example": "Em uma eleição, o país possui N presidentes potenciais..."
+                            },
+                            "input": {
+                              "type": "string",
+                              "example": "A primeira linha da entrada contém um inteiro N (1 ≤ N ≤ 1000)..."
+                            },
+                            "output": {
+                              "type": "string",
+                              "example": "Um inteiro representando o número de presidentes..."
+                            },
+                            "sample_input": {
+                              "type": "string",
+                              "example": "5\\n10 20 10 30 20"
+                            },
+                            "sample_output": {
+                              "type": "string",
+                              "example": "3"
+                            },
+                            "notes": {
+                              "type": "string",
+                              "example": "Os presidentes que podem ser escolhidos são..."
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -62,21 +100,30 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Bad Request"
+                        },
+                        "error": {
+                          "type": "string",
+                          "example": "Invalid input data."
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -99,28 +146,72 @@
                     "example": "cpp"
                   },
                   "problem": {
-                    "$ref": "#/components/schemas/Problem"
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "A Busca do Presidente"
+                      },
+                      "statement": {
+                        "type": "string",
+                        "example": "Em um país, existem N candidatos a presidente..."
+                      },
+                      "input": {
+                        "type": "string",
+                        "example": "A primeira linha contém um inteiro N (2 ≤ N ≤ 1000)..."
+                      },
+                      "output": {
+                        "type": "string",
+                        "example": "Retorne um único inteiro, que é a maior soma..."
+                      },
+                      "sample_input": {
+                        "type": "string",
+                        "example": "5\\n10 20 30 40 50"
+                      },
+                      "sample_output": {
+                        "type": "string",
+                        "example": "90"
+                      },
+                      "notes": {
+                        "type": "string",
+                        "example": "Para encontrar a combinação ideal..."
+                      }
+                    }
                   }
-                },
-                "required": ["language", "problem"]
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Solution generated successfully",
+            "description": "Solution created successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Created!"
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/Solution"
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Created!"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "solution": {
+                              "type": "string",
+                              "example": "#include <iostream>..."
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -128,21 +219,30 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Bad Request"
+                        },
+                        "error": {
+                          "type": "string",
+                          "example": "Invalid input data."
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -152,7 +252,7 @@
     },
     "/test-cases": {
       "post": {
-        "summary": "Generate test cases for a competitive programming problem",
+        "summary": "Generate competitive programming test cases",
         "requestBody": {
           "required": true,
           "content": {
@@ -162,31 +262,87 @@
                 "properties": {
                   "test_cases": {
                     "type": "integer",
-                    "example": 5
+                    "example": 6
                   },
                   "problem": {
-                    "$ref": "#/components/schemas/Problem"
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "A Busca do Presidente"
+                      },
+                      "statement": {
+                        "type": "string",
+                        "example": "Em um país, existem N candidatos a presidente..."
+                      },
+                      "input": {
+                        "type": "string",
+                        "example": "A primeira linha contém um inteiro N (2 ≤ N ≤ 1000)..."
+                      },
+                      "output": {
+                        "type": "string",
+                        "example": "Retorne um único inteiro, que é a maior soma..."
+                      },
+                      "sample_input": {
+                        "type": "string",
+                        "example": "5\\n10 20 30 40 50"
+                      },
+                      "sample_output": {
+                        "type": "string",
+                        "example": "90"
+                      },
+                      "notes": {
+                        "type": "string",
+                        "example": "Para encontrar a combinação ideal..."
+                      }
+                    }
                   }
-                },
-                "required": ["test_cases", "problem"]
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Test cases generated successfully",
+            "description": "Test cases created successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Created!"
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/TestCases"
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Created!"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "test_cases": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "input": {
+                                    "type": "string",
+                                    "example": "5\\n5 15 25 35 45"
+                                  },
+                                  "output": {
+                                    "type": "string",
+                                    "example": "60"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -194,111 +350,60 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Bad Request"
+                        },
+                        "error": {
+                          "type": "string",
+                          "example": "Invalid input data."
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           },
           "500": {
-            "description": "Internal server error",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Internal Server Error"
+                        },
+                        "error": {
+                          "type": "string",
+                          "example": "An unexpected error occurred."
+                        }
+                      }
+                    }
+                  }
                 }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Problem": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Binary Search Problem"
-          },
-          "statement": {
-            "type": "string",
-            "example": "Given an array of sorted integers, find if a number exists."
-          },
-          "input": {
-            "type": "string",
-            "example": "An array of integers."
-          },
-          "output": {
-            "type": "string",
-            "example": "Return true if exists, false otherwise."
-          },
-          "sample_input": {
-            "type": "string",
-            "example": "[1, 2, 3, 4, 5]"
-          },
-          "sample_output": {
-            "type": "string",
-            "example": "true"
-          },
-          "notes": {
-            "type": "string",
-            "example": "Use binary search."
-          }
-        }
-      },
-      "Solution": {
-        "type": "object",
-        "properties": {
-          "solution": {
-            "type": "string",
-            "example": "function binarySearch(arr, target) {...}"
-          }
-        }
-      },
-      "TestCases": {
-        "type": "object",
-        "properties": {
-          "test_cases": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "input": {
-                  "type": "string",
-                  "example": "Sample input for test case"
-                },
-                "output": {
-                  "type": "string",
-                  "example": "Expected output for test case"
-                }
-              }
-            }
-          }
-        }
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "Bad Request"
-          },
-          "error": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "ValidationError"
-              },
-              "message": {
-                "type": "string",
-                "example": "Invalid input"
               }
             }
           }
