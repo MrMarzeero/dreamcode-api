@@ -69,7 +69,6 @@ export class ProblemController {
         } catch(err) {
             return res.json({ error: "GENERATE TEST CASES: Bad Requests: Invalid Parameter" })
         }
-
         try {
             const completion = await openai.chat.completions.create({
                 model: "gpt-4o-mini",
