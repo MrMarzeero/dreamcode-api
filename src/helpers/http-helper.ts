@@ -5,7 +5,12 @@ export const badRequest = (err: Error): HttpResponse => {
     statusCode: 400,
     body: {
       status: 'Bad Request',
-      error: err,
+      error: {
+        name: err.name, 
+        stack: err.stack,
+        cause: err.cause,
+        message: err.message,
+      }
     },
   };
 };

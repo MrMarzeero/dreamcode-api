@@ -2,35 +2,303 @@
   "openapi": "3.0.0",
   "info": {
     "title": "DreamCode API",
-    "description": "The DreamCode API generates competitive programming problems and is also capable of solving them and generating test cases.",
-    "version": "0.5"
+    "version": "0.5.0",
+    "description": "API for generating competitive programming problems, solutions, and test cases."
   },
-  "servers": [
-    {
-      "url": "http://api.example.com/v1",
-      "description": "Optional server description, e.g. Main (production) server"
-    },
-    {
-      "url": "http://staging-api.example.com",
-      "description": "Optional server description, e.g. Internal staging server for testing"
-    }
-  ],
   "paths": {
-    "/users": {
-      "get": {
-        "summary": "Returns a list of users.",
-        "description": "Optional extended description in CommonMark or HTML.",
+    "/problem": {
+      "post": {
+        "summary": "Generate a competitive programming problem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string",
+                    "example": "English"
+                  },
+                  "context": {
+                    "type": "string",
+                    "example": "Problem context"
+                  },
+                  "topics": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["Arrays", "Sorting"]
+                  },
+                  "level": {
+                    "type": "string",
+                    "example": "Medium"
+                  }
+                },
+                "required": ["language", "context", "topics", "level"]
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "A JSON array of user names",
+          "201": {
+            "description": "Problem generated successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Problem"
+                    }
                   }
                 }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/solution": {
+      "post": {
+        "summary": "Generate a solution for a competitive programming problem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string",
+                    "example": "cpp"
+                  },
+                  "problem": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                },
+                "required": ["language", "problem"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Solution generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Solution"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test-cases": {
+      "post": {
+        "summary": "Generate test cases for a competitive programming problem",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "test_cases": {
+                    "type": "integer",
+                    "example": 5
+                  },
+                  "problem": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                },
+                "required": ["test_cases", "problem"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Test cases generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Created!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TestCases"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Binary Search Problem"
+          },
+          "statement": {
+            "type": "string",
+            "example": "Given an array of sorted integers, find if a number exists."
+          },
+          "input": {
+            "type": "string",
+            "example": "An array of integers."
+          },
+          "output": {
+            "type": "string",
+            "example": "Return true if exists, false otherwise."
+          },
+          "sample_input": {
+            "type": "string",
+            "example": "[1, 2, 3, 4, 5]"
+          },
+          "sample_output": {
+            "type": "string",
+            "example": "true"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Use binary search."
+          }
+        }
+      },
+      "Solution": {
+        "type": "object",
+        "properties": {
+          "solution": {
+            "type": "string",
+            "example": "function binarySearch(arr, target) {...}"
+          }
+        }
+      },
+      "TestCases": {
+        "type": "object",
+        "properties": {
+          "test_cases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "input": {
+                  "type": "string",
+                  "example": "Sample input for test case"
+                },
+                "output": {
+                  "type": "string",
+                  "example": "Expected output for test case"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Bad Request"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "ValidationError"
+              },
+              "message": {
+                "type": "string",
+                "example": "Invalid input"
               }
             }
           }
