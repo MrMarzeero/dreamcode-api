@@ -1,15 +1,17 @@
 import openai from '../lib/openai';
 import { Request, Response } from 'express';
 import { generateProblemPrompt, generateSolutionPrompt, generateTestCasesPrompt } from '../prompts'
-import { GenProblemSchema, GenSolutionSchema, GenTestCasesSchema, ProblemSchema } from '../schemas/schemas';
+import { genProblemSchema, genSolutionSchema, genTestCasesSchema } from '../schemas';
+import { badRequest , internalServerError, generationSuccess } from '../helpers';
 
 export class ProblemController {
     static async generateProblem(req: Request, res: Response) {
         try {
-            GenProblemSchema.parse(req.body);
+            genProblemSchema.parse(req.body);
         }
         catch(err) {
-            return res.status(400).json({ error: 'GENERATE PROBLEM: Bad Request: Invalid Parameter'})
+            if(err instanceof Error)
+                return res.status(400).json(badRequest(err));
         }
         try{
             const completion = await openai.chat.completions.create({
@@ -24,16 +26,17 @@ export class ProblemController {
 
             if(messageContent != null) {
                 const jsonResponse = JSON.parse(messageContent)
-                return res.status(201).json(jsonResponse)
+                return res.status(201).json(generationSuccess(jsonResponse))
             }
         } catch (err) {
-            return res.status(500).json({ error: 'Internal server error' })
+            if(err instanceof Error)
+                return res.status(500).json(internalServerError(err))
         }
     }
 
     static async generateSolution(req: Request, res: Response) {
         try {
-            GenSolutionSchema.parse(req.body)
+            genSolutionSchema.parse(req.body)
         } catch(err) {
             return res.status(400).json({ error: 'GENERATE SOLUTION: Bad Request: Invalid Parameter'})
         }
@@ -48,16 +51,21 @@ export class ProblemController {
 
             const messageContent = completion.choices[0].message.content
             if(messageContent != null) {
-                return res.status(201).json(JSON.parse(messageContent))
+                const jsonResponse = JSON.parse(messageContent)
+                return res.status(201).json(generationSuccess(jsonResponse))
             }
         } catch(err) {
-            return res.status(500).json({ error: 'Internal server error' })
+            if(err instanceof Error) {
+                console.log(err)
+                return res.status(500).json(internalServerError(err))
+            }
+
         }
     }
 
     static async generateTestCases(req: Request, res: Response) {
         try {
-            GenTestCasesSchema.parse(req.body)
+            genTestCasesSchema.parse(req.body)
         } catch(err) {
             return res.json({ error: "GENERATE TEST CASES: Bad Requests: Invalid Parameter" })
         }
@@ -73,11 +81,13 @@ export class ProblemController {
 
             const messageContent = completion.choices[0].message.content
             if(messageContent != null) {
-                return res.status(201).json(JSON.parse(messageContent))
+                console.log(messageContent)
+                const jsonResponse = JSON.parse(messageContent)
+                return res.status(201).json(generationSuccess(jsonResponse))
             }
         } catch(err) {
-            console.log(err)
-            return res.status(500).json({ error: 'Internal server error' })
+            if(err instanceof Error)
+                return res.status(500).json(internalServerError(err))
         }
     }
 }

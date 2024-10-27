@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const ProblemSchema = z.object({
+export const problemSchema = z.object({
     name: z.string(),
     statement: z.string(),
     input: z.string(),
@@ -10,19 +10,19 @@ export const ProblemSchema = z.object({
     notes: z.string(),
 })
 
-export const GenProblemSchema = z.object({
+export const genProblemSchema = z.object({
     language: z.string(),
     context: z.string(),
     topics: z.array(z.string()),
     level: z.string(),
 })
 
-export const GenSolutionSchema = z.object({
+export const genSolutionSchema = z.object({
     language: z.string(),
-    problem: ProblemSchema,
+    problem: problemSchema,
 })
 
-export const GenTestCasesSchema = z.object({
+export const genTestCasesSchema = z.object({
     test_cases: z.number(),
-    problem: ProblemSchema,
+    problem: problemSchema,
 })

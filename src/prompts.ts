@@ -40,6 +40,10 @@ Return the information structured strictly in the following JSON format, without
 }
 
 Make sure to include valid values that match the specified constraints, and do not include any additional characters or formatting that would make the JSON invalid.
+
+#To-Do
+-Ensure that the JSON is correctly formatted
+- There are no extra characters like backticks or newlines outside of the JSON structure.
 `;
 
 export const generateSolutionPrompt = `
@@ -100,6 +104,10 @@ For C++:
 {
 "solution": "#include <iostream>\\n#include <vector>\\n#include <algorithm>\\n\\nbool binary_search(const std::vector<int>& vec, int target) {\\n    int left = 0, right = vec.size() - 1;\\n    while (left <= right) {\\n        int mid = left + (right - left) / 2;\\n        if (vec[mid] == target) return true;\\n        else if (vec[mid] < target) left = mid + 1;\\n        else right = mid - 1;\\n    }\\n    return false;\\n}\\n\\nint main() {\\n    int n, q;\\n    std::cin >> n;\\n    std::vector<int> proposals(n);\\n    for (int i = 0; i < n; i++) std::cin >> proposals[i];\\n    std::cin >> q;\\n    for (int i = 0; i < q; i++) {\\n        int query;\\n        std::cin >> query;\\n        if (binary_search(proposals, query)) std::cout << "sim\\n";\\n        else std::cout << "nao\\n";\\n    }\\n    return 0;\\n}"
 }
+
+#To-Do
+-Ensure that the JSON is correctly formatted
+- There are no extra characters like backticks or newlines outside of the JSON structure.
 `
 
 export const generateTestCasesPrompt = `
