@@ -3,6 +3,7 @@ import router from './routes';
 import { config } from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from './swagger.json';
+import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 
 config();
@@ -10,14 +11,19 @@ config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use('/', router);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 50
+})
+
+app.use(limiter)
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN
 }));
+app.use(express.json());
+app.use('/', router);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(port, () => {
   console.log(`Server working on ${port}!`);
 });
-
