@@ -3,7 +3,7 @@
   "info": {
     "title": "DreamCode API",
     "description": "API for generating and solving competitive programming problems.",
-    "version": "0.5.0"
+    "version": "0.6.5"
   },
   "paths": {
     "/problem": {
