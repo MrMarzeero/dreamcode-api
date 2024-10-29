@@ -5,18 +5,22 @@ RESTFUL API that generate, solve and create test cases for competitive programmi
 ## 💻 Development Enviroment
 
 Execute on the project environment:
+
 ```sh
 npm install
 touch .env
 ```
 
-In the *.env* file insert:
+In the _.env_ file insert:
+
 ```
 PORT=3000
 OPENAI_API_KEY=PUT HERE YOUR KEY
-ALLOWED_ORIGIN=ORIGIN (Where the front-end is running, example: "http://localhost:5000") 
+ALLOWED_ORIGIN=ORIGIN (Where the front-end is running, example: "http://localhost:5000")
 ```
-## Documentation: 
+
+## Documentation:
+
 🟢 GET /api-docs (SwaggerUI)
 
-  ### DreamCode
+### DreamCode

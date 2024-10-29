@@ -13,11 +13,11 @@ const port = process.env.PORT || 3000;
 
 const limiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 50
-})
+  max: 50,
+});
 
-app.use(limiter)
-app.use(cors())
+app.use(limiter);
+app.use(cors());
 app.use(express.json());
 app.use('/', router);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

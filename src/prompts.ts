@@ -109,7 +109,7 @@ For C++:
 #To-Do
 -Ensure that the JSON is correctly formatted
 - There are no extra characters like backticks or newlines outside of the JSON structure.
-`
+`;
 
 export const generateTestCasesPrompt = `
 Generate test cases for a competitive programming problem based on the provided JSON input format and constraints. Ensure the JSON output is correctly formatted for parsing.
