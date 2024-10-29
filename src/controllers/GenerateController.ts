@@ -53,7 +53,6 @@ export class ProblemController {
       }
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err);
         return res.status(500).json(internalServerError(err));
       }
     }
@@ -76,7 +75,6 @@ export class ProblemController {
 
       const messageContent = completion.choices[0].message.content;
       if (messageContent != null) {
-        console.log(messageContent);
         const jsonResponse = JSON.parse(messageContent);
         return res.status(201).json(generationSuccess(jsonResponse));
       }
