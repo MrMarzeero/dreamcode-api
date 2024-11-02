@@ -15,7 +15,6 @@ In the _.env_ file insert:
 ```
 PORT=3000
 OPENAI_API_KEY=PUT HERE YOUR KEY
-ALLOWED_ORIGIN=ORIGIN (Where the front-end is running, example: "http://localhost:5000")
 ```
 
 ## Documentation:
