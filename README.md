@@ -1,5 +1,4 @@
-<h1 align="center"> 💻 dreamcode-api version 0.6 </h1>
-(Missing sessions validation)
+<h1 align="center"> 💻 dreamcode-api </h1>
 RESTFUL API that generate, solve and create test cases for competitive programming problems
 
 ## 💻 Development Enviroment
