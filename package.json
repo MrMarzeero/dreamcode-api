@@ -18,7 +18,7 @@
   "scripts": {
     "build": "bun tsc",
     "start": "bun ./dist/index.js"
-  }
+  },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
