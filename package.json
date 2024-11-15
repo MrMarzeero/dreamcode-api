@@ -16,7 +16,7 @@
     "typescript-eslint": "^8.11.0"
   },
   "scripts": {
-    "build": "bun tsc"
+    "build": "bun tsc",
     "start": "bun ./dist/index.js"
   }
   "peerDependencies": {
