@@ -2,7 +2,7 @@ import express from 'express';
 import router from './routes';
 import { config } from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocs from './swagger.json';
+import swaggerDocs from './docs/swagger.json';
 import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 
