@@ -13,7 +13,6 @@ touch .env
 In the _.env_ file insert:
 
 ```
-PORT=3000
 OPENAI_API_KEY=PUT HERE YOUR KEY
 ```
 
