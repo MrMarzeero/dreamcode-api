@@ -40,7 +40,7 @@ Return the information structured strictly in the following JSON format, without
 }
 
 Make sure to include valid values that match the specified constraints, and do not include any additional characters or formatting that would make the JSON invalid.
-The variables must like 1 <= N <= 1000 must be on a model like {N}, instead of N, do {N}. 
+The variables must like 1 <= N <= 1000 must be on a model like $N$, instead of N, do $N$. 
 
 #To-Do
 -Ensure to return all problem details in the specified language, including the problem statement, input/output specifications, and notes." This way, it will be clearer that you expect the response to follow the input language.
