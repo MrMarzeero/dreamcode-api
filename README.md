@@ -10,7 +10,7 @@ npm install
 touch .env
 ```
 
-In the _.env_ file insert:
+In the _.env_ file, insert:
 
 ```
 OPENAI_API_KEY=PUT HERE YOUR KEY
