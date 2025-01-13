@@ -1,5 +1,5 @@
-<h1 align="center"> 💻 dreamcode-api </h1>
-RESTFUL API that generate, solve and create test cases for competitive programming problems
+<h1 align="center"> 💻 Excelenzia-api </h1>
+RESTFUL API that generate quizzes of many subjects, including competitive programming problems generation.
 
 ## 💻 Development Enviroment
 
