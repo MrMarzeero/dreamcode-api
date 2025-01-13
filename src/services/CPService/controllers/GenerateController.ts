@@ -1,4 +1,4 @@
-import openai from '../lib/openai';
+import openai from '../../../lib/openai';
 import { Request, Response } from 'express';
 import { generateProblemPrompt, generateSolutionPrompt, generateTestCasesPrompt } from '../prompts';
 import { genProblemSchema, genSolutionSchema, genTestCasesSchema } from '../validation';
