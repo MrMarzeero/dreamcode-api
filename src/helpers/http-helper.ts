@@ -1,4 +1,4 @@
-import { genData, HttpResponse } from '../interfaces';
+import { genData, HttpResponse } from '../services/CPService/interfaces';
 
 export const badRequest = (err: Error): HttpResponse => {
   return {
