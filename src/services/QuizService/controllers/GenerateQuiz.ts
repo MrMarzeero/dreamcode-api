@@ -1,7 +1,7 @@
 import openai from '../../../lib/openai';
 import { Request, Response } from 'express';
 import { generateQuizPrompt } from '../prompts';
-import { genProblemSchema, genSolutionSchema, genTestCasesSchema } from '../../../validation';
+import { genQuizSchema } from '../../../validation';
 import { badRequest, internalServerError, generationSuccess } from '../../../helpers';
 
 export class QuizController {

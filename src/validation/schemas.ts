@@ -26,3 +26,11 @@ export const genTestCasesSchema = z.object({
   test_cases: z.number(),
   problem: problemSchema,
 });
+
+export const genQuizSchema = z.object({
+  subject: z.string(),
+  topics: z.array(z.string()),
+  quizType: z.string(),
+  questionsAmount: z.number(),
+  description: z.string(),
+})
