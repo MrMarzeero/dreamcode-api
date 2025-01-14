@@ -5,7 +5,7 @@ import { QuizController } from './services/QuizService/controllers'
 const router = Router();
 
 router
-  .post('/quiz/problem', (req: Request, res: Response) => {
+  .post('/quiz/generate', (req: Request, res: Response) => {
     QuizController.generateQuiz(req, res);
   })
   .post('/cp/problem', (req: Request, res: Response) => {

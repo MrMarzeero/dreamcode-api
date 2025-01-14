@@ -1,5 +1,5 @@
 export const generateQuizPrompt = `
-    Generate a complete quiz based on the provided JSON input containing quiz details. Extract relevant data from the JSON and create questions adhering to the specified guidelines.
+Generate a complete quiz based on the provided JSON input containing quiz details. Extract relevant data from the JSON and create questions adhering to the specified guidelines.
 
 # Steps
 
@@ -8,7 +8,7 @@ export const generateQuizPrompt = `
    - If "quizType" is "discursive", provide a detailed answer.
    - If "quizType" is "multiple choice", include only the correct alternative.
 3. **Ensure Topic Inclusion:** Make sure each question includes at least one of the selected topics, possibly combining multiple topics.
-4. **Construct JSON Output:** Compile the questions into a structured JSON format as specified.
+4. **Construct JSON Output:** Compile the questions into a structured JSON format as specified. Avoid introducing newline or tab characters within JSON strings.
 
 # Output Format
 
@@ -18,12 +18,12 @@ Output the quiz as a JSON object containing a list of questions. Each question s
 - "topics": A list including at least one of the selected topics.
 - "answer": The correct answer or alternative based on the quiz type.
 
-Ensure the resulting JSON is formatted correctly.
+Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
+Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
 
 # Examples
 
 ### Example Input
-\`\`\`json
 {
   "subject": "Math",
   "topics": ["geometry", "combinatorics"],
@@ -31,10 +31,8 @@ Ensure the resulting JSON is formatted correctly.
   "questionsAmount": 5,
   "description": "Intermediate difficulty focusing on application of principles."
 }
-\`\`\`
 
 ### Example Output
-\`\`\`json
 [
   {
     "problemStatement": "Explain how to find the area of a triangle using geometry principles.",
@@ -48,12 +46,8 @@ Ensure the resulting JSON is formatted correctly.
     "topics": ["combinatorics"],
     "answer": "There are 120 ways, calculated as 5 factorial (5!)."
   }
-  // Additional similar questions follow until it reaches the questionAmount number of questions...
+  // (Continue until 5 questions...)
 ]
-\`\`\`
 
-# Notes
-
-- Ensure each question aligns with the intended subject and topics.
-- Adapt questions according to the specified quiz type, and maintain clarity and relevance.
-`;
+For multiple choice quizzes, return a field "options", which is an array of 4 strings, the options.
+(Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;
