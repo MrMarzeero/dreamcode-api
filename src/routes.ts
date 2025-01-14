@@ -1,16 +1,20 @@
 import { Router, Request, Response } from 'express';
-import { ProblemController } from './controllers/GenerateController';
+import { ProblemController } from './services/CPService/controllers'
+import { QuizController } from './services/QuizService/controllers'
 
 const router = Router();
 
 router
-  .post('/problem', (req: Request, res: Response) => {
+  .post('/quiz/problem', (req: Request, res: Response) => {
+    QuizController.generateQuiz(req, res);
+  })
+  .post('/cp/problem', (req: Request, res: Response) => {
     ProblemController.generateProblem(req, res);
   })
-  .post('/solution', (req: Request, res: Response) => {
+  .post('/cp/solution', (req: Request, res: Response) => {
     ProblemController.generateSolution(req, res);
   })
-  .post('/test-cases', (req: Request, res: Response) => {
+  .post('/cp/test-cases', (req: Request, res: Response) => {
     ProblemController.generateTestCases(req, res);
   });
 
