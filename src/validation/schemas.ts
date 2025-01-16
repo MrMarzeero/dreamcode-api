@@ -34,3 +34,9 @@ export const genQuizSchema = z.object({
   questionsAmount: z.number(),
   description: z.string(),
 })
+
+export const singUpSchema = z.object({
+  username: z.string().min(3).max(10),
+  email: z.string().email(),
+  password: z.string().min(8).max(35),
+})

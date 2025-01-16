@@ -1,18 +1,29 @@
 import { genData, HttpResponse } from '../services/CPService/interfaces';
 
-export const badRequest = (err: Error): HttpResponse => {
+export const badRequest = (err?: Error, message?: any): HttpResponse => {
   return {
     statusCode: 400,
     body: {
-      status: 'Bad Request',
+      status: 'Undefined Bad Request',
       error: {
-        name: err.name,
-        stack: err.stack,
-        cause: err.cause,
-        message: err.message,
+        message: message
+      }
+    }
+  }
+  if(err) {
+    return {
+      statusCode: 400,
+      body: {
+        status: 'Bad Request',
+        error: {
+          name: err.name,
+          stack: err.stack,
+          cause: err.cause,
+          message: err.message,
+        },
       },
-    },
-  };
+    };
+  }
 };
 
 export const internalServerError = (err: Error): HttpResponse => {

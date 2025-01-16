@@ -9,9 +9,9 @@ datasource db {
 
 model User {
  id           String                   @id @default(uuid())
- name         String                   @unique
+ username     String                   @unique
  email        String                   @unique 
- passwrod     String                   
+ password     String                   
  createdAt    DateTime                 @default(now())
  quizzes      Quiz[]                
  @@map("users")
