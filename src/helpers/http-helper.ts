@@ -1,15 +1,6 @@
-import { genData, HttpResponse } from '../services/CPService/interfaces';
+import { genData, HttpResponse } from '../interfaces';
 
 export const badRequest = (err?: Error, message?: any): HttpResponse => {
-  return {
-    statusCode: 400,
-    body: {
-      status: 'Undefined Bad Request',
-      error: {
-        message: message
-      }
-    }
-  }
   if(err) {
     return {
       statusCode: 400,
@@ -23,6 +14,14 @@ export const badRequest = (err?: Error, message?: any): HttpResponse => {
         },
       },
     };
+  }
+
+  return {
+    statusCode: 400,
+    body: {
+      status: 'Undefined Bad Request',
+      error: message
+    }
   }
 };
 
