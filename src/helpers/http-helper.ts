@@ -1,7 +1,16 @@
 import { genData, HttpResponse } from '../interfaces';
 
-export const badRequest = (err?: Error, message?: any): HttpResponse => {
-  if(err) {
+export const ubadRequest = (message?: any): HttpResponse => {
+  return {
+    statusCode: 400,
+    body: {
+      status: 'Undefined Bad Request',
+      error: message
+    }
+  }
+}
+
+export const badRequest = (err: Error): HttpResponse => {
     return {
       statusCode: 400,
       body: {
@@ -13,15 +22,6 @@ export const badRequest = (err?: Error, message?: any): HttpResponse => {
           message: err.message,
         },
       },
-    };
-  }
-
-  return {
-    statusCode: 400,
-    body: {
-      status: 'Undefined Bad Request',
-      error: message
-    }
   }
 };
 

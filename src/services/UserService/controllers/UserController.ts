@@ -21,7 +21,7 @@ export class UserController {
             const emailAlreadyExists = await prismaClient.user.findUnique({where: email})
 
             if(usernameAlreadyExists || emailAlreadyExists)
-                return res.status(400).json(badRequest())
+                return res.status(400).json(badRequest(null, "username or email already exists on database"))
 
             const hashedPassword = bcrypt.hash(password, SALT_ROUNDS)
             const createUser = await prismaClient.user.create({
