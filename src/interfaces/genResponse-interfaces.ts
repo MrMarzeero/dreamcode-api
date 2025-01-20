@@ -15,3 +15,8 @@ export interface Solution {
 export interface TestCases {
   test_cases: Array<string>;
 }
+
+export interface SessionCreated {
+  token: String,
+  user: object,
+}

@@ -40,6 +40,16 @@ export const internalServerError = (err: Error): HttpResponse => {
   };
 };
 
+export const uInternalServerError = (message?: String): HttpResponse => {
+  return {
+    statusCode: 500,
+    body: {
+      status: 'Undefined Internal Server Error',
+      message
+    },
+  };
+};
+
 export const generationSuccess = (data: genData): HttpResponse => {
   return {
     statusCode: 201,

@@ -1,4 +1,4 @@
-import { Problem, Solution, TestCases } from './genResponse-interfaces';
+import { Problem, SessionCreated, Solution, TestCases } from './genResponse-interfaces';
 
 export interface HttpResponse {
   statusCode: number;
@@ -6,5 +6,5 @@ export interface HttpResponse {
 }
 
 export interface genData {
-  data: Problem | Solution | TestCases;
+  data: SessionCreated | Problem | Solution | TestCases;
 }
