@@ -13,13 +13,6 @@ export class UserController {
     static async createUser(req: Request, res: Response) {
         const { username, email, password } = req.body;
         try {
-            singUpSchema.parse(req.body);
-        } catch(err) {
-            if(err instanceof Error) return res.status(400).json(badRequest(err))
-        }
-
-
-        try {
             const usernameAlreadyExists = await prismaClient.user.findUnique({where: {username: username}})
             const emailAlreadyExists = await prismaClient.user.findUnique({where: {email: email}})
 
@@ -27,7 +20,7 @@ export class UserController {
                 return res.status(400).json(ubadRequest("username or email already exists on database"))
 
             const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
-            const createUser = await prismaClient.user.create({
+            const user = await prismaClient.user.create({
                 data: {
                     username, 
                     email,
@@ -35,7 +28,6 @@ export class UserController {
                 }
             })
             
-            const user = await prismaClient.user.findUnique({where: {username: username}})
             if(user == null) return res.status(400).json(ubadRequest("cannot find this user"))
             const token = jwt.sign(
                 { userId: user.id },
@@ -49,7 +41,7 @@ export class UserController {
                     user, 
                 }
             }
-            return res.status(201).json(generationSuccess(response))
+            return res.status(201).json(response)
         } catch(err) {
             if(err instanceof Error) return res.status(500).json(internalServerError(err))
         }

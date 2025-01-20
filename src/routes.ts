@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { ProblemController } from './services/CPService/controllers'
+import { ProblemController, SolutionController, TestCaseController } from './services/CPService/controllers'
 import { QuizController } from './services/QuizService/controllers'
 import { UserController } from './services/UserService/controllers/UserController';
 import { authenticateToken } from './middleware/authenticateToken';
@@ -14,13 +14,22 @@ router
     QuizController.generateQuiz(req, res);
   })
   .post('/cp/problem', authenticateToken, (req: Request, res: Response) => {
-    ProblemController.generateProblem(req, res);
+    ProblemController.generateProblem(req, res)
   })
-  .post('/cp/solution', authenticateToken, (req: Request, res: Response) => {
-    ProblemController.generateSolution(req, res);
+  .get('/cp/problem/:id', authenticateToken, (req: Request, res: Response) => {
+    ProblemController.getProblem(req, res)
   })
-  .post('/cp/test-cases', authenticateToken, (req: Request, res: Response) => {
-    ProblemController.generateTestCases(req, res);
+  .put('/cp/problem/:id', authenticateToken, (req: Request, res: Response) => {
+    ProblemController.updateProblem(req, res)
+  })
+  .delete('/cp/problem/:id', authenticateToken, (req: Request, res: Response) => {
+    ProblemController.deleteProblem(req, res)
+  })
+  .post('/cp/solution/:id', authenticateToken, (req: Request, res: Response) => {
+    SolutionController.getSolution(req, res)
+  })
+  .post('/cp/test-cases/:id', authenticateToken, (req: Request, res: Response) => {
+    TestCaseController.generateTestCases(req, res)
   })
   .post('/user/singUp', (req: Request, res: Response) => {
     UserController.createUser(req, res);
