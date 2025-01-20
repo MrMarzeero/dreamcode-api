@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { ProblemController } from './services/CPService/controllers'
 import { QuizController } from './services/QuizService/controllers'
+import { UserController } from './services/UserService/controllers/UserController';
 
 const router = Router();
 
@@ -16,6 +17,12 @@ router
   })
   .post('/cp/test-cases', (req: Request, res: Response) => {
     ProblemController.generateTestCases(req, res);
-  });
+  })
+  .post('/user/singUp', (req: Request, res: Response) => {
+    UserController.createUser(req, res);
+  })
+  .post('/user/logIn', (req: Request, res: Response) => {
+    UserController.logUser(req, res);
+  })
 
 export default router;

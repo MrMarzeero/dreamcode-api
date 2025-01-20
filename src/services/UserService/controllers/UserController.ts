@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { prismaClient } from "../../../database/prismaClient";
 import { Request, Response } from "express" 
@@ -20,8 +20,8 @@ export class UserController {
 
 
         try {
-            const usernameAlreadyExists = await prismaClient.user.findUnique({where: username})
-            const emailAlreadyExists = await prismaClient.user.findUnique({where: email})
+            const usernameAlreadyExists = await prismaClient.user.findUnique({where: {username: username}})
+            const emailAlreadyExists = await prismaClient.user.findUnique({where: {email: email}})
 
             if(usernameAlreadyExists || emailAlreadyExists)
                 return res.status(400).json(ubadRequest("username or email already exists on database"))
@@ -34,9 +34,9 @@ export class UserController {
                     password: hashedPassword, 
                 }
             })
-
-            const user = await prismaClient.user.findUnique({ where: username })
-            if(user == null) return res.status(400).json(ubadRequest("Cannot find this user"))
+            
+            const user = await prismaClient.user.findUnique({where: {username: username}})
+            if(user == null) return res.status(400).json(ubadRequest("cannot find this user"))
             const token = jwt.sign(
                 { userId: user.id },
                 SECRET_KEY,
