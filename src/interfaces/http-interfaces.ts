@@ -6,5 +6,6 @@ export interface HttpResponse {
 }
 
 export interface genData {
-  data: SessionCreated | Problem | Solution | TestCases;
+  name?: String, 
+  data: Problem | SessionCreated | Solution | TestCases;
 }

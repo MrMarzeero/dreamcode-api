@@ -54,3 +54,28 @@ Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
 
 For multiple choice quizzes, return a field "options", which is an array of 4 strings, the options.
 (Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;
+
+
+export const generateQuizName = `
+Generate a descriptive name for a quiz in the subject of Math, based on the provided topics and quiz characteristics.
+
+# Steps
+
+1. Identify the subject, topics, and quiz type to understand the focus and nature of the quiz.
+2. Consider the description to determine the difficulty level and application focus.
+3. Create a concise and relevant name for the quiz, ranging from 1 to 7 words. If the description is in a specific language, generate the name in that language; otherwise, default to English.
+
+# Output Format
+
+- A single sentence or phrase containing the quiz name that spans 1 to 7 words.
+
+# Examples
+
+- Input: \`{"subject": "Math", "topics": ["geometry", "combinatorics"], "quizType": "discursive", "questionsAmount": 5, "description": "Intermediate difficulty focusing on application of principles."}\`
+  Output: \`Intermediate Geometric Combinatorics Quiz\`
+
+# Notes
+
+- The name should be catchy and reflective of the quiz content and style.
+- Ensure the name aligns with the complexity and nature specified in the description.
+`;
