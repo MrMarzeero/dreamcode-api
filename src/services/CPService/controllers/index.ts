@@ -1,3 +1,3 @@
-export * from './problemController'
-export * from './solutionController'
-export * from './testCaseController'
+export * from './ProblemController'
+export * from './SolutionController'
+export * from './TestCaseController'

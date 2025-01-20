@@ -51,7 +51,6 @@ model CPQuest {
   notes       String? 
   author      User                    @relation(fields: [authorId], references: [id])
   solve    CPSolution?
-  cases    CPTestCase[]
   authorId    String
   @@map("cpquests")
 }
@@ -64,11 +63,3 @@ model CPSolution {
   @@map("cpsolutions")
 }
 
-model CPTestCase {
-  id          String                @id @default(uuid())
-  input       String    
-  output      String
-  question    CPQuest                @relation(fields: [questionId], references: [id])
-  questionId  String          
-  @@map("cptestcases")
-}

@@ -80,4 +80,61 @@ export class UserController {
             if(err instanceof Error) return res.status(500).json(internalServerError(err))
         }
     }
+
+    static async updateUser(req: Request, res: Response) {
+        const { username, email, password } = req.body;
+        const { userId } = req.params;
+    
+        try {
+            const user = await prismaClient.user.findUnique({ where: { id: userId } });
+            if (!user) return res.status(404).json(ubadRequest("User not found"));
+    
+            const updatedData: Partial<{ username: string; email: string; password: string }> = {};
+    
+            if (username) updatedData.username = username;
+            if (email) updatedData.email = email;
+            if (password) updatedData.password = await bcrypt.hash(password, SALT_ROUNDS);
+    
+            const updatedUser = await prismaClient.user.update({
+                where: { id: userId },
+                data: updatedData,
+            });
+    
+            if (!updatedUser) return res.status(400).json(ubadRequest("Failed to update user"));
+
+    
+            return res.status(200).json(updatedUser);
+        } catch (err) {
+            if (err instanceof Error) return res.status(500).json(internalServerError(err));
+        }
+    }
+    
+    static async deleteUser(req: Request, res: Response) {
+        const { userId } = req.params;
+    
+        try {
+            const user = await prismaClient.user.findUnique({ where: { id: userId } });
+            if (!user) return res.status(404).json(ubadRequest("User not found"));
+    
+            await prismaClient.user.delete({ where: { id: userId } });
+    
+            return res.status(200).json("Success!");
+        } catch (err) {
+            if (err instanceof Error) return res.status(500).json(internalServerError(err));
+        }
+    }
+    
+    static async getUser(req: Request, res: Response) {
+        const { userId } = req.params;
+    
+        try {
+            const user = await prismaClient.user.findUnique({ where: { id: userId } });
+            if (!user) return res.status(404).json(ubadRequest("User not found"))
+    
+            return res.status(200).json(user);
+        } catch (err) {
+            if (err instanceof Error) return res.status(500).json(internalServerError(err));
+        }
+    }
+    
 }
