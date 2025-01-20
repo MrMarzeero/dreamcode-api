@@ -24,8 +24,10 @@ export class ProblemController {
 
       if (messageContent != null) {
         const jsonResponse = JSON.parse(messageContent);
-        return res.status(201).json(generationSuccess(jsonResponse));
+        
       }
+
+
     } catch (err) {
       if (err instanceof Error) return res.status(500).json(internalServerError(err));
     }

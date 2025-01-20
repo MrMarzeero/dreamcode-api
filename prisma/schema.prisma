@@ -13,7 +13,8 @@ model User {
  email        String                   @unique 
  password     String                   
  createdAt    DateTime                 @default(now())
- quizzes      Quiz[]                
+ quizzes      Quiz[]    
+ cpquestions  CPQuest[]            
  @@map("users")
 }
 
@@ -23,6 +24,7 @@ model Quiz {
   author      User                     @relation(fields: [authorId], references: [id])
   authorId    String
   questions   Question[]
+  createdAt   DateTime                 @default(now())
   @@map("quizzes")
 }
 
@@ -36,4 +38,18 @@ model Question {
   quiz        Quiz                      @relation(fields: [quizId], references: [id])
   quizId      String
   @@map("questions")
+}
+
+model CPQuest {
+  id          String                   @id @default(uuid())
+  name        String
+  statement   String
+  input       String
+  output      String
+  sample_input  String  
+  sample_output String
+  notes       String 
+  author      User                    @relation(fields: [authorId], references: [id])
+  authorId    String
+  @@map("cpquests")
 }
