@@ -10,14 +10,14 @@ export class Controller {
             const problems = await prismaClient.cPQuest.findMany({where: {authorId: req.params.id}})
             const quizzes = await prismaClient.quiz.findMany({where: {authorId: req.params.id}})
 
-            const combinedObjects: { id: string; name: string }[] = [];
+            const combinedObjects: { id: string; name: string, type: string }[] = [];
 
             problems.forEach((problem) => {
-            combinedObjects.push({ id: problem.id, name: problem.name });
+            combinedObjects.push({ id: problem.id, name: problem.name, type: "cp" });
             });
 
             quizzes.forEach((quiz) => {
-            combinedObjects.push({ id: quiz.id, name: quiz.name });
+            combinedObjects.push({ id: quiz.id, name: quiz.name, type: "quiz" });
             });
             return res.status(200).json(combinedObjects)
         } catch(err) {
