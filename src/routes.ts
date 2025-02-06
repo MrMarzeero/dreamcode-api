@@ -7,7 +7,8 @@ import { authenticateToken } from './middleware/authenticateToken';
 
 const router = Router();
 
-router
+router 
+  
   .get('/all/:id', authenticateToken, (req: Request, res: Response) => {
     Controller.getAll(req, res)
   })

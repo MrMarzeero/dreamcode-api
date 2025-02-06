@@ -1,18 +1,1 @@
-services:
-  db:
-    container_name: db_container
-    image: postgres:17-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_USER: excelenzia
-      POSTGRES_DB: excelenzia
-    ports:
-      - 5432:5432
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: "bridge"
+ ins

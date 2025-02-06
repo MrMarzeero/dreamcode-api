@@ -48,7 +48,7 @@ export class UserController {
     }
 
     static async logUser(req: Request, res: Response) {
-        const authFactor = req.body.email || req.body.user
+        const authFactor = req.body.email || req.body.username
         try {
             const user = await prismaClient.user.findFirst({
                 where: {
