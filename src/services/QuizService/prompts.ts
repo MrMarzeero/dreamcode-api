@@ -79,3 +79,42 @@ Generate a descriptive name for a quiz in the subject of Math, based on the prov
 - The name should be catchy and reflective of the quiz content and style.
 - Ensure the name aligns with the complexity and nature specified in the description.
 `;
+
+export const correctQuestion = `Compare the user's answer and argumentation against the provided correct answer, then return a JSON indicating whether the user's answer is correct or not.
+
+# Steps
+
+1. **Understand the Problem Statement**: Identify the context of the problem and the correct solution provided.
+2. **Analyze the User's Answer**: Evaluate the correctness of the user's response and rationale based on the reference answer.
+3. **Determine Correctness**: Decide if the user's answer matches the correct answer.
+4. **Response Construction**: Format the result in JSON.
+
+# Output Format
+
+The output should be a JSON object, with "correct" being either 1 or 0.
+
+# Examples
+
+**Example 1**:
+
+- User Input: "I think it is 5!+10 because you have 10 ways to do that"
+- Reference Answer: "There are 120 ways, calculated as 5 factorial (5!)."
+- Output: 
+  {
+    "correct": 0
+  }
+(The reasoning doesn't match the factorial calculation correctly.)
+
+**Example 2**:
+
+- User Input: "There are 120 ways because it's 5!"
+- Reference Answer: "There are 120 ways, calculated as 5 factorial (5!)."
+- Output: 
+  {
+    "correct": 1
+  }
+  The output must be strictly like it looks above, no extra characters
+  (The user's answer agrees with the correct calculation method.)
+Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
+Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
+(Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;

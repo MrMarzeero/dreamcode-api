@@ -5,10 +5,8 @@ import { prismaClient } from '../database/prismaClient';
 export class Controller {
     static async getAll(req: Request, res: Response) {
         try {
-            if(req.params.userId != req.params.id)
-                return res.status(401).json("Access Denied")
-            const problems = await prismaClient.cPQuest.findMany({where: {authorId: req.params.id}})
-            const quizzes = await prismaClient.quiz.findMany({where: {authorId: req.params.id}})
+            const problems = await prismaClient.cPQuest.findMany({where: {authorId: req.params.userId}})
+            const quizzes = await prismaClient.quiz.findMany({where: {authorId: req.params.userId}})
 
             const combinedObjects: { id: string; name: string }[] = [];
 

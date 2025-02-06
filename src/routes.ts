@@ -8,8 +8,10 @@ import { authenticateToken } from './middleware/authenticateToken';
 const router = Router();
 
 router 
-  
-  .get('/all/:id', authenticateToken, (req: Request, res: Response) => {
+  .post('/correct/:id', authenticateToken, (req: Request, res: Response) => {
+    QuizController.correctQuest(req, res)
+  })
+  .get('/all/', authenticateToken, (req: Request, res: Response) => {
     Controller.getAll(req, res)
   })
   .get('/quiz/:id', authenticateToken, (req: Request, res: Response) => {

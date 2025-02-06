@@ -1,6 +1,6 @@
 import openai from '../../../lib/openai';
 import { Request, Response } from 'express';
-import { generateQuizName, generateQuizPrompt } from '../prompts';
+import { correctQuestion, generateQuizName, generateQuizPrompt } from '../prompts';
 import { genQuizSchema } from '../../../validation';
 import { badRequest, internalServerError, generationSuccess, uInternalServerError, ubadRequest } from '../../../helpers';
 import { prismaClient } from '../../../database/prismaClient';
@@ -120,6 +120,35 @@ export class QuizController {
         return res.status(200).json("Success!")
       } catch(err) {
         if(err instanceof Error) return res.status(500).json(internalServerError(err))
+      }
+    }
+    static async correctQuest(req: Request, res: Response) {
+      try {
+        const question = await prismaClient.question.findUnique({where: {id: req.params.id}})
+        if(question == null)
+            return res.status(403).json(ubadRequest("Invalid Question"))
+        const quiz = await prismaClient.quiz.findUnique({where: {id: question.quizId}})
+        if(quiz == null) 
+            return res.status(403).json(ubadRequest("Invalid Quiz"))
+        if(quiz.authorId != req.params.userId)
+            return res.status(401).json({error: "Acess Denied"})
+
+        const combined = {...req.body, ...question}
+
+        const completion = await openai.chat.completions.create({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: correctQuestion},
+            { role: 'user', content: JSON.stringify(combined) },
+          ],
+        });
+        const correctedQuest = completion.choices[0].message.content;
+        if(correctedQuest == null)
+            return res.status(500).json(uInternalServerError("Cannot correct the question"))
+        return res.status(201).json(JSON.parse(correctedQuest))
+
+      } catch(err) {
+        if(err instanceof Error) return res.status(500).json(internalServerError(err)) 
       }
     }
 }
