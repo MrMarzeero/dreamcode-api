@@ -21,8 +21,10 @@ model User {
 model Quiz {
   id          String                   @id @default(uuid())
   name        String  
-  author      User                     @relation(fields: [authorId], references: [id])
+  author      User                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
+  topics      String[]
+  questionsAmount Int
   questions   Question[]
   createdAt   DateTime                 @default(now())
   @@map("quizzes")
@@ -35,7 +37,7 @@ model Question {
   hint        String
   topics      String[]
   answer      String
-  quiz        Quiz                      @relation(fields: [quizId], references: [id])
+  quiz        Quiz                      @relation(fields: [quizId], references: [id], onDelete: Cascade)
   quizId      String
   @@map("questions")
 }
@@ -49,7 +51,7 @@ model CPQuest {
   sample_input  String  
   sample_output String
   notes       String? 
-  author      User                    @relation(fields: [authorId], references: [id])
+  author      User                    @relation(fields: [authorId], references: [id], onDelete: Cascade)
   solve    CPSolution?
   authorId    String
   @@map("cpquests")
@@ -58,7 +60,7 @@ model CPQuest {
 model CPSolution {
   id          String                 @id @default(uuid())
   solution    String
-  question    CPQuest                @relation(fields: [questionId], references: [id])
+  question    CPQuest                @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId  String                 @unique
   @@map("cpsolutions")
 }

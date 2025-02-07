@@ -42,6 +42,8 @@ export class QuizController {
               const quiz = await prismaClient.quiz.create({
                 data: {
                   name: quizName,
+                  topics: req.body.topics,
+                  questionsAmount: req.body.questionsAmount,
                   author: {
                     connect: {
                       id: user.id
@@ -107,7 +109,6 @@ export class QuizController {
         if(err instanceof Error) return res.status(500).json(internalServerError(err))
       }
     }
-
     static async deleteQuiz(req: Request, res: Response) {
       try {
         const quiz = await prismaClient.quiz.findUnique({where: {id: req.params.id}})

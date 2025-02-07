@@ -115,34 +115,18 @@ For C++:
 export const generateTestCasesPrompt = `
 Generate test cases for a competitive programming problem based on the provided JSON input format and constraints. Ensure the JSON output is correctly formatted for parsing.
 
-Ensure that the number of test cases ranges between 5 and 20, inclusive. Each test case should contain an input and expected output in a well-structured JSON format.
-
 # Steps
 
 1. Parse the JSON input to understand the problem named "Example" along with its statement, input, output, sample_input, and sample_output.
-2. Adjust the number of test cases if necessary to ensure it's within the 5 to 20 range.
+2. Generate the exact number of test cases specified in the "test_cases" parameter.
 3. For each test case:
    - Analyze the problem statement to derive variations and edge cases.
    - Formulate inputs that cover a broad range of scenarios, including typical cases, edge cases, and corner cases.
    - Determine the expected output for each test scenario based on the problem's logic.
 4. Compile these into a structured JSON format as described.
 
-#Example Input 
-{
-    "test_cases": 5,
-    "problem": {
-        "problem": {
-        "name": "Exemple",
-        "statement": "Exemple",
-        "output": "Exemple",
-        "sample_input": "Exemple",
-        "sample_output": "Exemple",
-        "notes": "Exemple"
-    }    
-}
-
-#Ensure that the number of output test cases is the same that the indicated in the test_cases parameter.
-
+Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
+Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
 # Output Format
 
 The output should be a valid JSON object that can be parsed correctly. It should include:
@@ -161,30 +145,14 @@ The output should be a valid JSON object that can be parsed correctly. It should
         {
             "input": "Sample input for test case 2",
             "output": "Expected output for test case 2"
-        },
-        {
-            "input": "Sample input for test case 3",
-            "output": "Expected output for test case 3"
-        },
-        {
-            "input": "Sample input for test case 4",
-            "output": "Expected output for test case 4"
-        },
-        {
-            "input": "Sample input for test case 5",
-            "output": "Expected output for test case 5"
         }
     ]
 }
-(Note: Ensure real test cases reflect the complexity and specifics of the problem statement. The output must not contain any extraneous characters or formatting.)
-
-#To-Do
--Ensure that the JSON is correctly formatted
-- There are no extra characters like backticks or newlines outside of the JSON structure.
 
 # Notes
 
 - Ensure the test cases fully explore the problem space as indicated by the problem's constraints and examples.
 - Double-check that outputs are accurate and match the described problem logic and rules.
 - Use sample input/output as a guide to ensure consistency with the problem statement.
+
 `;

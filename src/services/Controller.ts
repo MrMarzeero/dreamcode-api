@@ -7,16 +7,19 @@ export class Controller {
         try {
             const problems = await prismaClient.cPQuest.findMany({where: {authorId: req.params.userId}})
             const quizzes = await prismaClient.quiz.findMany({where: {authorId: req.params.userId}})
+            const combinedObjects: { id: string; name: string, topics?: string[] }[] = [];
 
-            const combinedObjects: { id: string; name: string }[] = [];
-
-            problems.forEach((problem) => {
-            combinedObjects.push({ id: problem.id, name: problem.name });
-            });
-
-            quizzes.forEach((quiz) => {
-            combinedObjects.push({ id: quiz.id, name: quiz.name });
-            });
+            if(problems != null) {
+                problems.forEach((problem) => {
+                    combinedObjects.push({ id: problem.id, name: problem.name });
+                });
+            }
+            if(quizzes != null) {
+                quizzes.forEach((quiz) => {
+                    combinedObjects.push({ id: quiz.id, name: quiz.name, topics: quiz.topics });
+                });
+            }
+            
             return res.status(200).json(combinedObjects)
         } catch(err) {
             if(err instanceof Error) return res.status(500).json(internalServerError(err));

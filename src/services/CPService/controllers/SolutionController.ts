@@ -8,7 +8,6 @@ import { generateProblemPrompt, generateSolutionPrompt, generateTestCasesPrompt 
 export class SolutionController {
     static async getSolution(req: Request, res: Response) {
         try {
-          const { statement, input, output, sample_input, sample_output, notes } = req.body
           const problem = await prismaClient.cPQuest.findUnique({where: {id: req.params.id}})
           if(problem == null)
               return res.status(400).json({error: "Cannot find this problem"})
@@ -24,7 +23,7 @@ export class SolutionController {
             messages: [
               { role: 'system', content: generateSolutionPrompt },
               { role: 'user', content: JSON.stringify({
-                statement, input, output, sample_input, sample_output, notes
+                problem
               }) },
             ],
           });

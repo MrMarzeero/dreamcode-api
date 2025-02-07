@@ -17,6 +17,9 @@ router
   .get('/quiz/:id', authenticateToken, (req: Request, res: Response) => {
     QuizController.getQuiz(req, res)
   })  
+  .delete('/quiz/:id', authenticateToken, (req: Request, res: Response) => {
+    QuizController.deleteQuiz(req, res);
+  })
   .post('/quiz/generate', authenticateToken, (req: Request, res: Response) => {
     QuizController.generateQuiz(req, res);
   })
@@ -32,25 +35,25 @@ router
   .delete('/cp/problem/:id', authenticateToken, (req: Request, res: Response) => {
     ProblemController.deleteProblem(req, res)
   })
-  .post('/cp/solution/:id', authenticateToken, (req: Request, res: Response) => {
+  .get('/cp/solution/:id', authenticateToken, (req: Request, res: Response) => {
     SolutionController.getSolution(req, res)
   })
   .post('/cp/test-cases/:id', authenticateToken, (req: Request, res: Response) => {
     TestCaseController.generateTestCases(req, res)
   })
-  .post('/user/singUp', (req: Request, res: Response) => {
+  .post('/user/signUp', (req: Request, res: Response) => {
     UserController.createUser(req, res);
   })
   .post('/user/logIn', (req: Request, res: Response) => {
     UserController.logUser(req, res);
   })
-  .get('/user/:id', authenticateToken, (req: Request, res: Response) => {
+  .get('/user/', authenticateToken, (req: Request, res: Response) => {
     UserController.getUser(req, res);
   })
-  .put('/user/:id', authenticateToken, (req: Request, res: Response) => {
+  .put('/user/', authenticateToken, (req: Request, res: Response) => {
     UserController.updateUser(req, res);
   })
-  .delete('/user/:id', authenticateToken, (req: Request, res: Response) => {
+  .delete('/user/', authenticateToken, (req: Request, res: Response) => {
     UserController.deleteUser(req, res);
   })
 
