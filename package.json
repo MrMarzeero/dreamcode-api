@@ -17,8 +17,9 @@
   },
 "scripts": {
   "postinstall": "npx prisma generate",
-  "build": "npx prisma generate && bun ./src/index"
+  "build": "rm -rf node_modules/.prisma && node node_modules/.bin/prisma generate && bun ./src/index"
 },
+
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
