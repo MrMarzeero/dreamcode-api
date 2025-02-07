@@ -16,7 +16,8 @@
     "typescript-eslint": "^8.11.0"
   },
   "scripts": {
-    "build": "npx prisma generate && bun ./src/index"
+    "postinstall": "npx prisma generate",
+    "build": "bun ./src/index"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
