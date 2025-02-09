@@ -12,7 +12,6 @@ RUN bun install
 
 # Gera o Prisma Client
 RUN bunx prisma generate
-RUN bunx prisma migrate deploy
 
 # Executa a build do projeto
 RUN bun run build
