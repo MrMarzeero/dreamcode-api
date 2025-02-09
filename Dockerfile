@@ -20,4 +20,4 @@ RUN bun run build
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
-CMD ["bun", "start"]
+# CMD ["bun", "start"]
