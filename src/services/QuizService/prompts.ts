@@ -52,6 +52,7 @@ Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
   // (Continue until 5 questions...)
 ]
 
+Ensure that it return a proper JSON to parse in TS using JSON.parse(content)
 For multiple choice quizzes, return a field "options", which is an array of 4 strings, the options.
 (Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;
 
