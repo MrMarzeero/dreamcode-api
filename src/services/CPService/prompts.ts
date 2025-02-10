@@ -6,153 +6,129 @@ Use the default constraints of 256mb memory and 1ms time limits. If specific pro
 # Steps
 
 1. **Interpret the Details**:
-    - The output language must be the language in the parameter "language" of the input.
-   - Develop a problem idea if one is not provided.
-   - Select the relevant problem topics based on general programming problem types if none are specified.
-   - Determine the difficulty level based on problem complexity if not pre-defined.
+    - O idioma de saída deve ser estritamente o português, conforme o parâmetro "language" do input.
+    - Desenvolva uma ideia de problema se uma não for fornecida.
+    - Selecione os tópicos relevantes do problema com base em tipos gerais de problemas de programação, se nenhum for especificado.
+    - Determine o nível de dificuldade com base na complexidade do problema, se não for pré-definido.
 
-2. **Create a Problem Statement**:
-   - Write a concise and clear problem statement that explains the task the user must perform.
-   - Include necessary background or contextual information pertinent to the problem.
+2. **Criação do Enunciado do Problema**:
+   - Escreva um enunciado claro e conciso que explique a tarefa a ser realizada pelo usuário.
+   - Inclua informações contextuais ou de fundo necessárias para a compreensão do problema.
 
-3. **Define Input and Output Specifications**:
-   - Clearly specify the input format, including constraints and any special cases.
-   - Outline the desired output format, ensuring clarity on what is expected as a solution.
+3. **Definir Especificações de Entrada e Saída**:
+   - Especifique claramente o formato de entrada, incluindo restrições e casos especiais.
+   - Descreva o formato de saída esperado, garantindo clareza sobre o que é necessário.
 
-4. **Construct Sample Inputs and Outputs**:
-   - Create an example scenario with both input values and expected output to provide clarity on what the solution should entail.
+4. **Criar Exemplos de Entrada e Saída**:
+   - Forneça um exemplo prático com valores de entrada e a saída esperada para ilustrar o que a solução deve produzir.
 
-5. **Include Notes or Explanations**:
-   - Offer additional clarifications or insights relevant to solving the problem, if useful for understanding.
+5. **Incluir Notas ou Explicações**:
+   - Adicione esclarecimentos ou insights adicionais relevantes para a resolução do problema, se necessário.
 
-# Output Format
+# Formato de Saída
 
-Return the information structured strictly in the following JSON format, without any surrounding text:
+Retorne as informações estritamente no seguinte formato JSON, sem nenhum texto adicional ao redor:
 
 {
-    "name": "<Name of the problem>",
-    "statement": "<Problem statement description>",
-    "input": "<Detailed input specifications>",
-    "output": "<Description of expected output>",
-    "sample_input": "<Example of input values>",
-    "sample_output": "<Corresponding example output>",
-    "notes": "<Additional notes or explanations>"
+    "name": "<Nome do problema>",
+    "statement": "<Descrição do problema>",
+    "input": "<Especificações detalhadas da entrada>",
+    "output": "<Descrição da saída esperada>",
+    "sample_input": "<Exemplo de entrada>",
+    "sample_output": "<Correspondente exemplo de saída>",
+    "notes": "<Notas adicionais ou explicações>"
 }
 
-Make sure to include valid values that match the specified constraints, and do not include any additional characters or formatting that would make the JSON invalid.
-The variables must like 1 <= N <= 1000 must be on a model like $N$, instead of N, do $N$. 
+Certifique-se de incluir valores válidos que correspondam às restrições especificadas e não inclua caracteres ou formatações adicionais que tornem o JSON inválido.
 
-#To-Do
--Ensure to return all problem details in the specified language, including the problem statement, input/output specifications, and notes." This way, it will be clearer that you expect the response to follow the input language.
--Ensure that the JSON is correctly formatted
-- There are no extra characters like backticks or newlines outside of the JSON structure.
+# To-Do
+- Certifique-se de que a resposta esteja totalmente em português, incluindo enunciado, entrada, saída e notas.
+- Garantir que o JSON esteja formatado corretamente.
+- Não incluir caracteres extras como backticks ou quebras de linha fora da estrutura JSON.
 `;
 
 export const generateSolutionPrompt = `
-Given a JSON input describing a programming challenge, your task is to generate a solution implementation in the specified programming language (C++, Python, or JavaScript). The solution should correctly handle input and output formatting as described, while implementing the logic using a binary search to efficiently determine the presence of specified values in a list.
+Dado um JSON que descreve um problema de programação, gere uma solução na linguagem especificada (C++, Python ou JavaScript). A solução deve tratar corretamente a entrada e a saída conforme descrito e implementar a lógica utilizando busca binária para determinar a presença de valores em uma lista de forma eficiente.
 
-- **Input JSON Structure**: 
-1. "language": A string indicating the language of implementation ("cpp", "py", or "js").
-2. "problem": An object containing:
-    - "name": A description of the problem.
-    - "statement": Brief explanation of the problem context.
-    - "input": Format along with conditions for input values.
-    - "output": Expected format of the output.
-    - "sample_input": Sample input case.
-    - "sample_output": Corresponding expected output for the sample input.
-    - "notes": Additional instructions or constraints, like utilizing binary search.
+- **Estrutura do JSON de Entrada**: 
+1. "language": Uma string indicando a linguagem de implementação ("cpp", "py" ou "js").
+2. "problem": Um objeto contendo:
+    - "name": O nome do problema.
+    - "statement": Enunciado do problema.
+    - "input": Especificação da entrada.
+    - "output": Especificação da saída.
+    - "sample_input": Exemplo de entrada.
+    - "sample_output": Exemplo correspondente de saída.
+    - "notes": Instruções adicionais ou restrições.
 
-# Steps
+# Passos
 
-1. **Parse Input**:
-- Extract the number of proposals and their values from the input.
-- Extract the number of queries and the values to be checked.
+1. **Analisar a Entrada**:
+   - Extraia o número de elementos e os valores da lista.
+   - Extraia o número de consultas e os valores a serem verificados.
 
-2. **Binary Search Implementation**:
-- For each query value, implement a binary search to determine if it exists in the list of proposals.
+2. **Implementar a Busca Binária**:
+   - Para cada valor de consulta, utilize busca binária para verificar se ele existe na lista.
 
-3. **Output Results**:
-- For each query, print "sim" if the value is found in the proposals, else print "nao".
+3. **Gerar a Saída**:
+   - Para cada consulta, imprima "sim" se o valor for encontrado, caso contrário, imprima "não".
 
-# Output Format
+# Formato de Saída
 
-- Return a JSON object containing the solution code. The structure should be:
-{
-    "solution": "<CODE_SNIPPET>"
-}
-- "<CODE_SNIPPET>" should be the implemented code solution in the specified language following the structure and solving methodology indicated by the problem.
-
-# Examples
-
-**Example Input**:
+Retorne um JSON contendo o código da solução. A estrutura deve ser:
 
 {
-"language": "cpp",
-"problem": {
-    "name": "Busca por Propostas",
-    "statement": "...",
-    "input": "...",
-    "output": "...",
-    "sample_input": "5\\n1000 2000 3000 4000 5000\\n3\\n1500 3000 6000",
-    "sample_output": "nao\\nsim\\nnao",
-    "notes": "..."
-}
+    "solution": "<TRECHO_CODIGO>"
 }
 
-**Example Output**:
+O campo "<TRECHO_CODIGO>" deve conter o código da solução na linguagem especificada, garantindo que siga a estrutura e metodologia indicadas pelo problema.
 
-For C++:
-
-{
-"solution": "#include <iostream>\\n#include <vector>\\n#include <algorithm>\\n\\nbool binary_search(const std::vector<int>& vec, int target) {\\n    int left = 0, right = vec.size() - 1;\\n    while (left <= right) {\\n        int mid = left + (right - left) / 2;\\n        if (vec[mid] == target) return true;\\n        else if (vec[mid] < target) left = mid + 1;\\n        else right = mid - 1;\\n    }\\n    return false;\\n}\\n\\nint main() {\\n    int n, q;\\n    std::cin >> n;\\n    std::vector<int> proposals(n);\\n    for (int i = 0; i < n; i++) std::cin >> proposals[i];\\n    std::cin >> q;\\n    for (int i = 0; i < q; i++) {\\n        int query;\\n        std::cin >> query;\\n        if (binary_search(proposals, query)) std::cout << "sim\\n";\\n        else std::cout << "nao\\n";\\n    }\\n    return 0;\\n}"
-}
-
-#To-Do
--Ensure that the JSON is correctly formatted
-- There are no extra characters like backticks or newlines outside of the JSON structure.
+# To-Do
+- Certifique-se de que todos os comentários e mensagens dentro do código estejam em português.
+- Garantir que o JSON esteja formatado corretamente.
+- Não incluir caracteres extras como backticks ou quebras de linha fora da estrutura JSON.
 `;
 
 export const generateTestCasesPrompt = `
-Generate test cases for a competitive programming problem based on the provided JSON input format and constraints. Ensure the JSON output is correctly formatted for parsing.
+Gere casos de teste para um problema de programação competitiva baseado no formato JSON de entrada fornecido. Certifique-se de que a saída JSON seja corretamente formatada para parsing.
 
-# Steps
+# Passos
 
-1. Parse the JSON input to understand the problem named "Example" along with its statement, input, output, sample_input, and sample_output.
-2. Generate the exact number of test cases specified in the "test_cases" parameter.
-3. For each test case:
-   - Analyze the problem statement to derive variations and edge cases.
-   - Formulate inputs that cover a broad range of scenarios, including typical cases, edge cases, and corner cases.
-   - Determine the expected output for each test scenario based on the problem's logic.
-4. Compile these into a structured JSON format as described.
+1. Analise o JSON de entrada para entender o problema, incluindo enunciado, entrada, saída e exemplos.
+2. Gere a quantidade exata de casos de teste conforme o parâmetro "test_cases".
+3. Para cada caso de teste:
+   - Considere variações e casos extremos do problema.
+   - Formule entradas que cobrem uma ampla gama de cenários.
+   - Determine a saída esperada para cada entrada, garantindo consistência com a lógica do problema.
+4. Compile as informações no formato JSON estruturado abaixo.
 
-Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
-Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
-# Output Format
+# Formato de Saída
 
-The output should be a valid JSON object that can be parsed correctly. It should include:
-- A "test_cases" key with an array of test case objects.
-- Each test case object should include:
-  - "input": String representing the input for the test case.
-  - "output": String representing the expected output for the test case.
+A saída deve ser um JSON válido e parseável. Deve incluir:
+- Uma chave "test_cases" contendo um array de objetos de caso de teste.
+- Cada objeto de caso de teste deve incluir:
+  - "input": String representando a entrada do caso de teste.
+  - "output": String representando a saída esperada.
 
-# Example Output
+# Exemplo de Saída
+
 {
     "test_cases": [
         {
-            "input": "Sample input for test case 1",
-            "output": "Expected output for test case 1"
+            "input": "Entrada de exemplo para o caso 1",
+            "output": "Saída esperada para o caso 1"
         },
         {
-            "input": "Sample input for test case 2",
-            "output": "Expected output for test case 2"
+            "input": "Entrada de exemplo para o caso 2",
+            "output": "Saída esperada para o caso 2"
         }
     ]
 }
 
-# Notes
+# Notas
 
-- Ensure the test cases fully explore the problem space as indicated by the problem's constraints and examples.
-- Double-check that outputs are accurate and match the described problem logic and rules.
-- Use sample input/output as a guide to ensure consistency with the problem statement.
-
+- Certifique-se de que os casos de teste cobrem todo o espaço de entrada possível dentro das restrições do problema.
+- Verifique se as saídas estão corretas e seguem a lógica do problema.
+- Use os exemplos de entrada/saída como referência para garantir a consistência.
+- Todos os textos, inclusive as descrições dos testes, devem estar em português.
 `;

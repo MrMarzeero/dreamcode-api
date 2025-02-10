@@ -1,122 +1,122 @@
-export const generateQuizPrompt = `Generate a complete quiz based on the provided JSON input containing quiz details. Extract relevant data from the JSON and create questions adhering to the specified guidelines.
+export const generateQuizPrompt = `Gere um quiz completo com base no JSON de entrada fornecido, contendo os detalhes do quiz. Extraia os dados relevantes do JSON e crie perguntas que sigam as diretrizes especificadas.
 
-# Steps
+# Passos
 
-1. **Parse the JSON:** Extract the quiz specification details, such as subject, topics, quiz type, number of questions, and optional description.
-2. **Question Generation:** For each question, use the topics to create a suitable problem statement and hint.
-   - If "quizType" is "discursive", provide a detailed answer.
-   - If "quizType" is "multiple choice", include only the correct alternative.
-3. **Ensure Topic Inclusion:** Make sure each question includes at least one of the selected topics, possibly combining multiple topics.
-4. **Construct JSON Output:** Compile the questions into a structured JSON format as specified. Avoid introducing newline or tab characters within JSON strings.
+1. **Analisar o JSON:** Extraia os detalhes da especificação do quiz, como matéria, tópicos, tipo de quiz, número de perguntas e descrição opcional.
+2. **Geração de Perguntas:** Para cada pergunta, utilize os tópicos para criar um enunciado adequado e uma dica.
+   - Se "quizType" for "discursivo", forneça uma resposta detalhada.
+   - Se "quizType" for "múltipla escolha", inclua apenas a alternativa correta.
+3. **Garantir Inclusão dos Tópicos:** Certifique-se de que cada pergunta inclui pelo menos um dos tópicos selecionados, podendo combinar múltiplos tópicos.
+4. **Construção do JSON de Saída:** Compile as perguntas em um formato JSON estruturado conforme especificado. Evite introduzir caracteres de nova linha ou tabulação dentro das strings do JSON.
 
-# Output Format
+**IMPORTANTE:** Retorne a resposta estritamente em português.
 
-Output the quiz as a JSON object containing a list of questions. Each question should include the following fields:
-- "problemStatement": A clear statement of the problem.
-- "alternatives": If it is a multiple choice return its alternatives, else, leave it blank.
-- "hint": A helpful hint for solving the problem.
-- "topics": A list including at least one of the selected topics.
-- "answer": The correct answer or alternative based on the quiz type.
+# Formato de Saída
 
-Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
-Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
+O quiz deve ser retornado como um objeto JSON contendo uma lista de perguntas. Cada pergunta deve incluir os seguintes campos:
+- "problemStatement": Um enunciado claro do problema.
+- "alternatives": Caso seja uma questão de múltipla escolha, liste as alternativas; caso contrário, deixe em branco.
+- "hint": Uma dica útil para resolver o problema.
+- "topics": Uma lista contendo pelo menos um dos tópicos selecionados.
+- "answer": A resposta correta ou alternativa correta, dependendo do tipo de quiz.
 
-# Examples
+Certifique-se de que o JSON resultante está formatado corretamente e não contém caracteres inválidos de escape. O JSON deve ser válido para ser analisado com JSON.parse() em TypeScript.
 
-### Example Input
+# Exemplos
+
+### Exemplo de Entrada
 {
-  "subject": "Math",
-  "topics": ["geometry", "combinatorics"],
-  "quizType": "discursive",
+  "subject": "Matemática",
+  "topics": ["geometria", "combinatória"],
+  "quizType": "discursivo",
   "questionsAmount": 5,
-  "description": "Intermediate difficulty focusing on application of principles."
+  "description": "Dificuldade intermediária com foco na aplicação de princípios."
 }
-### Example Output
+
+### Exemplo de Saída
 [
   {
-    "problemStatement": "Explain how to find the area of a triangle using geometry principles.",
+    "problemStatement": "Explique como descobrir a área de um triângulo usando princípios de geometria.",
     "alternatives": [],
-    "hint": "Consider using base and height.",
-    "topics": ["geometry"],
-    "answer": "To find the area, use the formula: (base * height) / 2."
+    "hint": "Considere usar base e altura.",
+    "topics": ["Geometria"],
+    "answer": "Para encontrar a área, use a fórmula: (base x altura) / 2."
   },
   {
-    "problemStatement": "How many ways can you arrange 5 books?",
+    "problemStatement": "Quantas permutações existem para 5 números distintos?",
     "alternatives": [],
-    "hint": "Use factorials.",
-    "topics": ["combinatorics"],
-    "answer": "There are 120 ways, calculated as 5 factorial (5!)."
+    "hint": "Use fatorial.",
+    "topics": ["Combinatória"],
+    "answer": "Há um total de 120 maneiras, calculadas com (5!)."
   }
-  // (Continue until 5 questions...)
+  // (Continue até atingir 5 perguntas...)
 ]
-
-# To-Do
-- Ensure that the output structure is strictly like the example. It is important to do a map on the answer, so, it must start with []
-- Ensure to return all problem details in the specified language, including the problem statement, input/output specifications, and notes. This way, it will be clearer that you expect the response to follow the input language.
-- Ensure that the JSON is correctly formatted.
-- There are no extra characters like backticks or newlines outside of the JSON structure.`;
-
-
-
-export const generateQuizName = `
-Generate a descriptive name for a quiz in the subject of Math, based on the provided topics and quiz characteristics.
-
-# Steps
-
-1. Identify the subject, topics, and quiz type to understand the focus and nature of the quiz.
-2. Consider the description to determine the difficulty level and application focus.
-3. Create a concise and relevant name for the quiz, ranging from 1 to 7 words. If the description is in a specific language, generate the name in that language; otherwise, default to English.
-
-# Output Format
-
-- A single sentence or phrase containing the quiz name that spans 1 to 7 words.
-
-# Examples
-
-- Input: \`{"subject": "Math", "topics": ["geometry", "combinatorics"], "quizType": "discursive", "questionsAmount": 5, "description": "Intermediate difficulty focusing on application of principles."}\`
-  Output: \`Intermediate Geometric Combinatorics Quiz\`
-
-# Notes
-
-- The name should be catchy and reflective of the quiz content and style.
-- Ensure the name aligns with the complexity and nature specified in the description.
 `;
 
-export const correctQuestion = `Compare the user's answer and argumentation against the provided correct answer, then return a JSON indicating whether the user's answer is correct or not.
+export const generateQuizName = `
+Gere um nome descritivo para um quiz na matéria de Matemática, com base nos tópicos fornecidos e nas características do quiz.
 
-# Steps
+# Passos
 
-1. **Understand the Problem Statement**: Identify the context of the problem and the correct solution provided.
-2. **Analyze the User's Answer**: Evaluate the correctness of the user's response and rationale based on the reference answer.
-3. **Determine Correctness**: Decide if the user's answer matches the correct answer.
-4. **Response Construction**: Format the result in JSON.
+1. Identifique a matéria, os tópicos e o tipo de quiz para compreender o foco e a natureza do quiz.
+2. Considere a descrição para determinar o nível de dificuldade e o foco da aplicação.
+3. Crie um nome conciso e relevante para o quiz, contendo de 1 a 7 palavras. Se a descrição estiver em português, gere o nome em português; caso contrário, utilize o idioma padrão da descrição.
 
-# Output Format
+**IMPORTANTE:** Retorne o nome do quiz estritamente em português.
 
-The output should be a JSON object, with "correct" being either 1 or 0.
+# Formato de Saída
 
-# Examples
+- Uma única frase contendo o nome do quiz, com no máximo 7 palavras.
 
-**Example 1**:
+# Exemplos
 
-- User Input: "I think it is 5!+10 because you have 10 ways to do that"
-- Reference Answer: "There are 120 ways, calculated as 5 factorial (5!)."
-- Output: 
+- Entrada: \`{"subject": "Matemática", "topics": ["geometria", "combinatória"], "quizType": "discursivo", "questionsAmount": 5, "description": "Dificuldade intermediária com foco na aplicação de princípios."}\`
+  Saída: \`Quiz de Combinatória e Geometria Intermediária\`
+
+# Observações
+
+- O nome deve ser chamativo e refletir o conteúdo e estilo do quiz.
+- Certifique-se de que o nome está alinhado com a complexidade e a natureza especificada na descrição.
+`;
+
+export const correctQuestion = `Compare a resposta e a argumentação do usuário com a resposta correta fornecida e retorne um JSON indicando se a resposta do usuário está correta ou não.
+
+# Passos
+
+1. **Compreender o Enunciado do Problema:** Identifique o contexto do problema e a solução correta fornecida.
+2. **Analisar a Resposta do Usuário:** Avalie a correção da resposta e da justificativa com base na resposta de referência.
+3. **Determinar a Correção:** Decida se a resposta do usuário corresponde à resposta correta.
+4. **Construção da Resposta:** Formate o resultado em JSON.
+
+**IMPORTANTE:** Retorne a resposta estritamente em português.
+
+# Formato de Saída
+
+A saída deve ser um objeto JSON, onde "correct" pode ser 1 (correto) ou 0 (incorreto).
+
+# Exemplos
+
+**Exemplo 1**:
+
+- Resposta do Usuário: "Acredito que seja 5! + 10 porque há 10 maneiras de fazer isso"
+- Resposta de Referência: "Existem 120 maneiras, calculadas como 5 fatorial (5!)."
+- Saída:
   {
     "correct": 0
   }
-(The reasoning doesn't match the factorial calculation correctly.)
+(A justificativa não corresponde corretamente ao cálculo do fatorial.)
 
-**Example 2**:
+**Exemplo 2**:
 
-- User Input: "There are 120 ways because it's 5!"
-- Reference Answer: "There are 120 ways, calculated as 5 factorial (5!)."
-- Output: 
+- Resposta do Usuário: "Existem 120 maneiras porque é 5!"
+- Resposta de Referência: "Existem 120 maneiras, calculadas como 5 fatorial (5!)."
+- Saída:
   {
     "correct": 1
   }
-  The output must be strictly like it looks above, no extra characters
-  (The user's answer agrees with the correct calculation method.)
-Ensure the resulting JSON is formatted correctly and does not contain invalid escape characters.
-Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
-(Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;
+(A resposta do usuário concorda com o método correto de cálculo.)
+
+Certifique-se de que o JSON resultante está formatado corretamente e não contém caracteres inválidos de escape. O JSON deve ser válido para ser analisado com JSON.parse() em TypeScript.
+
+**Nota:** Certifique-se de que o número de perguntas corresponde ao campo "questionsAmount" na entrada. A saída não deve conter caracteres ou formatações extras.
+`;
