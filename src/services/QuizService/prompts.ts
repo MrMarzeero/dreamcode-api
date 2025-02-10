@@ -20,6 +20,18 @@ O quiz deve ser retornado como um objeto JSON contendo uma lista de perguntas. C
 - "topics": Uma lista contendo pelo menos um dos tópicos selecionados.
 - "answer": A resposta correta ou alternativa correta, dependendo do tipo de quiz.
 
+O JSON deve ser uma **lista de perguntas**, e não um objeto. Certifique-se de que a resposta segue estritamente este formato:
+
+[
+  {
+    "problemStatement": "...",
+    "alternatives": [],
+    "hint": "...",
+    "topics": ["..."],
+    "answer": "..."
+  }
+]
+
 Certifique-se de que o JSON resultante está formatado corretamente e não contém caracteres inválidos de escape. O JSON deve ser válido para ser analisado com JSON.parse() em TypeScript.
 
 # Exemplos

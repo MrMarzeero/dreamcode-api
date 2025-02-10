@@ -24,6 +24,7 @@ export class QuizController {
             const messageContent = completion.choices[0].message.content;
             if(messageContent == null) return res.status(500).json(uInternalServerError("'messageContent' is null"))
             const parsed = JSON.parse(messageContent)
+            console.log(parsed)
 
               const completionName = await openai.chat.completions.create({
                 model: 'gpt-4o-mini',
