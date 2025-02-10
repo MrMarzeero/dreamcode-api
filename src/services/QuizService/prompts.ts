@@ -1,5 +1,4 @@
-export const generateQuizPrompt = `
-Generate a complete quiz based on the provided JSON input containing quiz details. Extract relevant data from the JSON and create questions adhering to the specified guidelines.
+export const generateQuizPrompt = `Generate a complete quiz based on the provided JSON input containing quiz details. Extract relevant data from the JSON and create questions adhering to the specified guidelines.
 
 # Steps
 
@@ -32,7 +31,6 @@ Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
   "questionsAmount": 5,
   "description": "Intermediate difficulty focusing on application of principles."
 }
-
 ### Example Output
 [
   {
@@ -52,9 +50,12 @@ Ensure that the answer is proper to parse in JSON.parse(answer) in TS.
   // (Continue until 5 questions...)
 ]
 
-Ensure that it return a proper JSON to parse in TS using JSON.parse(content)
-For multiple choice quizzes, return a field "options", which is an array of 4 strings, the options.
-(Note: Ensure the number of questions matches the "questionsAmount" field in the input. The output must not contain any extraneous characters or formatting.)`;
+# To-Do
+- Ensure that the output structure is strictly like the example. It is important to do a map on the answer, so, it must start with []
+- Ensure to return all problem details in the specified language, including the problem statement, input/output specifications, and notes. This way, it will be clearer that you expect the response to follow the input language.
+- Ensure that the JSON is correctly formatted.
+- There are no extra characters like backticks or newlines outside of the JSON structure.`;
+
 
 
 export const generateQuizName = `
